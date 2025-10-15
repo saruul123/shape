@@ -128,9 +128,9 @@ const SHAPES: Omit<Shape, "id" | "rotation">[] = [
 const CHALLENGES: Challenge[] = [
   {
     id: 1,
-    name: "Жижиг Дөрвөлжин",
+    name: "Буга",
     difficulty: "Хялбар",
-    description: "4x4 дөрвөлжин үүсгэ",
+    description: "Буга үүсгэ",
     targetGrid: [
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -148,60 +148,6 @@ const CHALLENGES: Challenge[] = [
       [0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    ],
-  },
-  {
-    id: 2,
-    name: "Шат",
-    difficulty: "Дунд",
-    description: "Шат хэлбэр үүсгэ",
-    targetGrid: [
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    ],
-  },
-  {
-    id: 3,
-    name: "Загвар",
-    difficulty: "Хүнд",
-    description: "Нарийн төвөгтэй загвар үүсгэ",
-    targetGrid: [
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -230,6 +176,7 @@ export default function ShapeBuilder() {
   const [gameMode, setGameMode] = useState<"free" | "challenge" | "menu">("menu")
   const [currentChallenge, setCurrentChallenge] = useState<Challenge | null>(null)
   const [isCompleted, setIsCompleted] = useState(false)
+  const [touchStartPos, setTouchStartPos] = useState<{ x: number; y: number } | null>(null)
 
   const rotatePattern = (pattern: number[][]): number[][] => {
     const rows = pattern.length
@@ -501,6 +448,96 @@ export default function ShapeBuilder() {
     return false // No collision
   }
 
+  const handleTouchStart = (shape: Shape, e: React.TouchEvent) => {
+    e.preventDefault()
+    setDraggedShape(shape)
+    const touch = e.touches[0]
+    setTouchStartPos({ x: touch.clientX, y: touch.clientY })
+  }
+
+  const handlePlacedShapeTouchStart = (shape: PlacedShape, e: React.TouchEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setDraggedPlacedShapeId(shape.id)
+    const touch = e.touches[0]
+    setTouchStartPos({ x: touch.clientX, y: touch.clientY })
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    e.preventDefault()
+
+    if (!gridRef.current || (!draggedShape && draggedPlacedShapeId === null)) return
+
+    const touch = e.touches[0]
+    const rect = gridRef.current.getBoundingClientRect()
+    const x = Math.floor((touch.clientX - rect.left) / CELL_SIZE)
+    const y = Math.floor((touch.clientY - rect.top) / CELL_SIZE)
+
+    // Determine which shape is being dragged
+    let pattern: number[][] | null = null
+    let excludeId: number | undefined = undefined
+
+    if (draggedPlacedShapeId !== null) {
+      const shape = placedShapes.find((s) => s.id === draggedPlacedShapeId)
+      if (shape) {
+        pattern = shape.pattern
+        excludeId = draggedPlacedShapeId
+      }
+    } else if (draggedShape) {
+      pattern = draggedShape.pattern
+    }
+
+    if (pattern && x >= 0 && y >= 0) {
+      const valid = !checkCollision(pattern, x, y, excludeId)
+      setDragPreview({ x, y, valid })
+    } else {
+      setDragPreview(null)
+    }
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    e.preventDefault()
+
+    if (!gridRef.current || (!draggedShape && draggedPlacedShapeId === null)) {
+      setDraggedShape(null)
+      setDraggedPlacedShapeId(null)
+      setDragPreview(null)
+      setTouchStartPos(null)
+      return
+    }
+
+    const touch = e.changedTouches[0]
+    const rect = gridRef.current.getBoundingClientRect()
+    const x = Math.floor((touch.clientX - rect.left) / CELL_SIZE)
+    const y = Math.floor((touch.clientY - rect.top) / CELL_SIZE)
+
+    if (x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE) {
+      if (draggedPlacedShapeId !== null) {
+        // Moving an existing placed shape
+        const shape = placedShapes.find((s) => s.id === draggedPlacedShapeId)
+        if (shape) {
+          // Check collision before moving
+          if (!checkCollision(shape.pattern, x, y, draggedPlacedShapeId)) {
+            setPlacedShapes((shapes) => shapes.map((s) => (s.id === draggedPlacedShapeId ? { ...s, x, y } : s)))
+          }
+        }
+      } else if (draggedShape) {
+        // Placing a new shape from available shapes
+        // Check collision before placing
+        if (!checkCollision(draggedShape.pattern, x, y)) {
+          setPlacedShapes([...placedShapes, { ...draggedShape, x, y }])
+          setAvailableShapes(availableShapes.filter((s) => s.id !== draggedShape.id))
+        }
+      }
+    }
+
+    // Clean up drag state
+    setDraggedPlacedShapeId(null)
+    setDraggedShape(null)
+    setDragPreview(null)
+    setTouchStartPos(null)
+  }
+
   if (gameMode === "menu") {
     return (
       <div className="container mx-auto px-4 py-8">
@@ -621,6 +658,8 @@ export default function ShapeBuilder() {
               }}
               onDragOver={handleDragOver}
               onDrop={handleDrop}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
             >
               {gameMode === "challenge" && currentChallenge && (
                 <div className="absolute inset-0 pointer-events-none z-0">
@@ -703,6 +742,7 @@ export default function ShapeBuilder() {
                   draggable
                   onDragStart={(e) => handlePlacedShapeDragStart(shape, e)}
                   onDragEnd={handleDragEnd}
+                  onTouchStart={(e) => handlePlacedShapeTouchStart(shape, e)}
                 >
                   <div className="relative transition-transform hover:scale-105">
                     {shape.pattern.map((row, i) => (
@@ -773,6 +813,7 @@ export default function ShapeBuilder() {
                   draggable
                   onDragStart={(e) => handleDragStart(shape, e)}
                   onDragEnd={handleDragEnd}
+                  onTouchStart={(e) => handleTouchStart(shape, e)}
                 >
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm font-medium text-muted-foreground">Хэсэг #{shape.id + 1}</span>

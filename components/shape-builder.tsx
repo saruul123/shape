@@ -45,14 +45,14 @@ const SHAPES: Omit<Shape, "id" | "rotation">[] = [
     pattern: [
       [1, 1],
       [1, 1],
-      [0, 1],
+      [1, 0],
     ],
     color: "bg-blue-400",
   },
   {
     pattern: [
       [1, 1, 1],
-      [1, 1, 1],
+      [1, 0, 1],
     ],
     color: "bg-green-400",
   },

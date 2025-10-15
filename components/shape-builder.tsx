@@ -128,9 +128,9 @@ const SHAPES: Omit<Shape, "id" | "rotation">[] = [
 const CHALLENGES: Challenge[] = [
   {
     id: 1,
-    name: "Жижиг Дөрвөлжин",
-    difficulty: "Хялбар",
-    description: "4x4 дөрвөлжин үүсгэ",
+    name: "Буга",
+    difficulty: "Маш хэцүү",
+    description: "Буга үүсгэ",
     targetGrid: [
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

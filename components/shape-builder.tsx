@@ -151,6 +151,7 @@ const CHALLENGES: Challenge[] = [
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     ],
   },
   {
@@ -312,10 +313,26 @@ export default function ShapeBuilder() {
     if (x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE) {
       if (type === "placed" && draggedPlacedShapeId !== null) {
         // Moving an existing placed shape
-        setPlacedShapes((shapes) => shapes.map((s) => (s.id === draggedPlacedShapeId ? { ...s, x, y } : s)))
+        const shape = placedShapes.find((s) => s.id === draggedPlacedShapeId)
+        if (shape) {
+          // Check if the new position keeps the shape within bounds
+          const shapeWidth = shape.pattern[0].length
+          const shapeHeight = shape.pattern.length
+          const finalX = Math.min(x, GRID_SIZE - shapeWidth)
+          const finalY = Math.min(y, GRID_SIZE - shapeHeight)
+
+          setPlacedShapes((shapes) =>
+            shapes.map((s) => (s.id === draggedPlacedShapeId ? { ...s, x: finalX, y: finalY } : s)),
+          )
+        }
       } else if (type === "new" && draggedShape) {
         // Placing a new shape from available shapes
-        setPlacedShapes([...placedShapes, { ...draggedShape, x, y }])
+        const shapeWidth = draggedShape.pattern[0].length
+        const shapeHeight = draggedShape.pattern.length
+        const finalX = Math.min(x, GRID_SIZE - shapeWidth)
+        const finalY = Math.min(y, GRID_SIZE - shapeHeight)
+
+        setPlacedShapes([...placedShapes, { ...draggedShape, x: finalX, y: finalY }])
         setAvailableShapes(availableShapes.filter((s) => s.id !== draggedShape.id))
       }
     }

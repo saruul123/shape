@@ -151,7 +151,6 @@ const CHALLENGES: Challenge[] = [
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     ],
   },
   {
@@ -172,7 +171,6 @@ const CHALLENGES: Challenge[] = [
       [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -731,7 +729,7 @@ export default function ShapeBuilder() {
                       </div>
                     ))}
 
-                    {hoveredShapeId === shape.id && (
+                    {hoveredShapeId === shape.id && draggedPlacedShapeId !== shape.id && (
                       <div className="absolute -top-10 left-1/2 -translate-x-1/2 flex gap-1 bg-background border-2 border-primary rounded-lg p-1 shadow-lg z-10">
                         <Button
                           size="sm"
@@ -745,7 +743,10 @@ export default function ShapeBuilder() {
                         <Button
                           size="sm"
                           variant="ghost"
-                          onClick={() => removeShape(shape.id)}
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            removeShape(shape.id)
+                          }}
                           className="h-8 w-8 p-0 hover:bg-destructive/10"
                           title="Устгах"
                         >

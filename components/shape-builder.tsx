@@ -75,8 +75,9 @@ const SHAPES: Omit<Shape, "id" | "rotation">[] = [
   },
   {
     pattern: [
+      [1, 0, 0],
       [1, 1, 1],
-      [1, 1, 1],
+      [0, 1, 0],
     ],
     color: "bg-lime-400",
   },
@@ -91,12 +92,19 @@ const SHAPES: Omit<Shape, "id" | "rotation">[] = [
   {
     pattern: [
       [1, 1],
-      [1, 1],
+      [0, 1],
+      [0, 1],
+      [0, 1],
     ],
     color: "bg-gray-400",
   },
   {
-    pattern: [[1], [1], [1], [1]],
+    pattern: [
+      [0, 1],
+      [1, 1],
+      [0, 1],
+      [0, 1],
+    ],
     color: "bg-emerald-400",
   },
   {
@@ -109,10 +117,19 @@ const SHAPES: Omit<Shape, "id" | "rotation">[] = [
   },
   {
     pattern: [
-      [1, 1, 1],
-      [1, 0, 0],
+      [0, 1, 1],
+      [0, 1, 0],
+      [1, 1, 0],
     ],
     color: "bg-amber-400",
+  },
+  {
+    pattern: [
+      [0, 0, 1],
+      [0, 1, 1],
+      [1, 1, 0],
+    ],
+    color: "bg-green-400",
   },
 ]
 

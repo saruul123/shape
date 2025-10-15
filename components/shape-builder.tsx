@@ -226,6 +226,7 @@ export default function ShapeBuilder() {
   const [draggedShape, setDraggedShape] = useState<Shape | null>(null)
   const [draggedPlacedShapeId, setDraggedPlacedShapeId] = useState<number | null>(null)
   const [hoveredShapeId, setHoveredShapeId] = useState<number | null>(null)
+  const [dragPreview, setDragPreview] = useState<{ x: number; y: number; valid: boolean } | null>(null)
   const gridRef = useRef<HTMLDivElement>(null)
 
   const [gameMode, setGameMode] = useState<"free" | "challenge" | "menu">("menu")
@@ -297,10 +298,39 @@ export default function ShapeBuilder() {
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault()
     e.dataTransfer.dropEffect = "move"
+
+    if (!gridRef.current) return
+
+    const rect = gridRef.current.getBoundingClientRect()
+    const x = Math.floor((e.clientX - rect.left) / CELL_SIZE)
+    const y = Math.floor((e.clientY - rect.top) / CELL_SIZE)
+
+    // Determine which shape is being dragged
+    let pattern: number[][] | null = null
+    let excludeId: number | undefined = undefined
+
+    if (draggedPlacedShapeId !== null) {
+      const shape = placedShapes.find((s) => s.id === draggedPlacedShapeId)
+      if (shape) {
+        pattern = shape.pattern
+        excludeId = draggedPlacedShapeId
+      }
+    } else if (draggedShape) {
+      pattern = draggedShape.pattern
+    }
+
+    if (pattern && x >= 0 && y >= 0) {
+      const valid = !checkCollision(pattern, x, y, excludeId)
+      setDragPreview({ x, y, valid })
+    } else {
+      setDragPreview(null)
+    }
   }
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault()
+    setDragPreview(null) // Clear preview
+
     if (!gridRef.current) return
 
     const rect = gridRef.current.getBoundingClientRect()
@@ -315,25 +345,18 @@ export default function ShapeBuilder() {
         // Moving an existing placed shape
         const shape = placedShapes.find((s) => s.id === draggedPlacedShapeId)
         if (shape) {
-          // Check if the new position keeps the shape within bounds
-          const shapeWidth = shape.pattern[0].length
-          const shapeHeight = shape.pattern.length
-          const finalX = Math.min(x, GRID_SIZE - shapeWidth)
-          const finalY = Math.min(y, GRID_SIZE - shapeHeight)
-
-          setPlacedShapes((shapes) =>
-            shapes.map((s) => (s.id === draggedPlacedShapeId ? { ...s, x: finalX, y: finalY } : s)),
-          )
+          // Check collision before moving
+          if (!checkCollision(shape.pattern, x, y, draggedPlacedShapeId)) {
+            setPlacedShapes((shapes) => shapes.map((s) => (s.id === draggedPlacedShapeId ? { ...s, x, y } : s)))
+          }
         }
       } else if (type === "new" && draggedShape) {
         // Placing a new shape from available shapes
-        const shapeWidth = draggedShape.pattern[0].length
-        const shapeHeight = draggedShape.pattern.length
-        const finalX = Math.min(x, GRID_SIZE - shapeWidth)
-        const finalY = Math.min(y, GRID_SIZE - shapeHeight)
-
-        setPlacedShapes([...placedShapes, { ...draggedShape, x: finalX, y: finalY }])
-        setAvailableShapes(availableShapes.filter((s) => s.id !== draggedShape.id))
+        // Check collision before placing
+        if (!checkCollision(draggedShape.pattern, x, y)) {
+          setPlacedShapes([...placedShapes, { ...draggedShape, x, y }])
+          setAvailableShapes(availableShapes.filter((s) => s.id !== draggedShape.id))
+        }
       }
     }
 
@@ -345,6 +368,7 @@ export default function ShapeBuilder() {
   const handleDragEnd = () => {
     setDraggedPlacedShapeId(null)
     setDraggedShape(null)
+    setDragPreview(null) // Clear preview on drag end
   }
 
   const clearGrid = () => {
@@ -432,6 +456,50 @@ export default function ShapeBuilder() {
     setCurrentChallenge(null)
     setIsCompleted(false)
     clearGrid()
+  }
+
+  const checkCollision = (pattern: number[][], x: number, y: number, excludeShapeId?: number): boolean => {
+    // Check if shape goes out of bounds
+    const shapeHeight = pattern.length
+    const shapeWidth = pattern[0].length
+
+    if (x < 0 || y < 0 || x + shapeWidth > GRID_SIZE || y + shapeHeight > GRID_SIZE) {
+      return true // Collision with boundary
+    }
+
+    // Check collision with other placed shapes
+    for (const placedShape of placedShapes) {
+      // Skip the shape we're currently dragging
+      if (excludeShapeId !== undefined && placedShape.id === excludeShapeId) {
+        continue
+      }
+
+      // Check each cell of the new shape
+      for (let i = 0; i < pattern.length; i++) {
+        for (let j = 0; j < pattern[i].length; j++) {
+          if (pattern[i][j] === 1) {
+            const newX = x + j
+            const newY = y + i
+
+            // Check if this cell overlaps with the placed shape
+            for (let pi = 0; pi < placedShape.pattern.length; pi++) {
+              for (let pj = 0; pj < placedShape.pattern[pi].length; pj++) {
+                if (placedShape.pattern[pi][pj] === 1) {
+                  const placedX = placedShape.x + pj
+                  const placedY = placedShape.y + pi
+
+                  if (newX === placedX && newY === placedY) {
+                    return true // Collision detected
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return false // No collision
   }
 
   if (gameMode === "menu") {
@@ -593,6 +661,35 @@ export default function ShapeBuilder() {
                   />
                 ))}
               </div>
+
+              {dragPreview && (draggedShape || draggedPlacedShapeId !== null) && (
+                <div className="absolute inset-0 pointer-events-none z-30">
+                  {(() => {
+                    const pattern =
+                      draggedShape?.pattern || placedShapes.find((s) => s.id === draggedPlacedShapeId)?.pattern
+                    if (!pattern) return null
+
+                    return pattern.map((row, i) =>
+                      row.map((cell, j) =>
+                        cell ? (
+                          <div
+                            key={`preview-${i}-${j}`}
+                            className={`absolute border-2 rounded-sm transition-colors ${
+                              dragPreview.valid ? "bg-green-300/40 border-green-500" : "bg-red-300/40 border-red-500"
+                            }`}
+                            style={{
+                              left: (dragPreview.x + j) * CELL_SIZE,
+                              top: (dragPreview.y + i) * CELL_SIZE,
+                              width: CELL_SIZE - 2,
+                              height: CELL_SIZE - 2,
+                            }}
+                          />
+                        ) : null,
+                      ),
+                    )
+                  })()}
+                </div>
+              )}
 
               {placedShapes.map((shape) => (
                 <div
